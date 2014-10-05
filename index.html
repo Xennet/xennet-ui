@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app>
+<html >
 <head>
   <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
   <title>Zennet App</title>
@@ -28,8 +28,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-              <li class="active"><a class="navbar-link" name="home">Home</a></li>
-              <li><a class="navbar-link" name="worker">Worker</a></li>
+              <li ><a class="navbar-link" name="home">Home</a></li>
+              <li class="active"><a class="navbar-link" name="worker">Worker</a></li>
               <li><a class="navbar-link" name="provider">Provider</a></li>
               <li><a class="navbar-link" name="wallet">Wallet</a></li>
               <li><a class="navbar-link" name="preferences">Preferences</a></li>
@@ -45,10 +45,6 @@
                    
 
                       <div id="home" class="app-section">
-                            
-                            <!-- <div>
-                            <input type="text" id="example_id" name="example_name" value="" />
-                            </div> -->
                             <div class="container-fluid">
                                   <div class="row-fluid">
                                       <div class="col-md-2">
@@ -60,10 +56,11 @@
                                       </div>
                                        <div class="col-md-10">
                                             <div id="home-default-content" class="app-section-content home-content">HOME HOME</div>
+                                             
                                       </div>
                                   </div>
                               </div>
-                      </div>
+                      </div>                     
 
                       <div id="worker" class="app-section">
                             <div class="container-fluid">
@@ -81,6 +78,7 @@
                                     </div>
 
                                     <div class="col-md-10">
+
                                         <div id="worker-new-filter-content" class="app-section-content worker-content">
                                               <div class="row-fluid"><h3>TITLE</h3></div>
                                               <div class="row-fluid">
@@ -91,28 +89,52 @@
                                                             <div class="muted">rates are reward per day</div>
                                                         </div>
                                                         <div class="row">
-                                                              <div class="radio">
-                                                                    
-                                                                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                                                                          <div class="panel panel-default">
-                                                                              <div class="panel-body">
-                                                                                    <label>label</label>
+                                                              <div class="radio">                                                                    
+                                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                                                    <div class="panel panel-default">
+                                                                        <div class="panel-body">
+                                                                              <div class="row ui-control">
+                                                                                  <div class="col-md-6">
+                                                                                        <label>label</label>
+                                                                                  </div>
+                                                                                  <div class="col-md-6">
+                                                                                        <input type="text" id="example_id" name="example_name" value="" ng-model="yourName"/>
+                                                                                  </div>
                                                                               </div>
-                                                                          </div>
-                                                                    
+                                                                        </div>
+                                                                    </div>                                                                    
                                                                 </div>
                                                                 <div class="radio">
-                                                                  <label>
                                                                     <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                                                    Option two can be something else and selecting it will deselect option one
-                                                                  </label>
+                                                                        <div class="panel panel-default">
+                                                                              <div class="panel-body">
+                                                                                    <div class="row ui-control" id="anchor-workerFilterRateByBenchmark">
+                                                                                          <!-- <ul class="unstyled">
+                                                                                              <li ng-repeat="todo in todos">
+                                                                                                <input type="checkbox" ng-model="todo.done">
+                                                                                                <span class="done-{{todo.done}}">{{todo.text}}</span>
+                                                                                              </li>
+                                                                                            </ul> -->
+
+                                                                                          <!-- <div class="col-md-6">
+                                                                                                <label>0T</label>
+                                                                                          </div>
+                                                                                          <div class="col-md-6">
+                                                                                                <input type="text" class="filter-rate-slider" id="filter-rate-0T" name="filter-rate-0T" value="" data-min="30"/>
+                                                                                          </div> -->
+                                                                                    </div>
+                                                                              </div>
+                                                                        </div>
                                                                 </div>
                                                           </div>
                                                     </div>
-                                                    <div class="col-md-6">CONTAINER</div>
+                                                    <div class="col-md-6"><h4>CONTAINER</h4></div>
                                               </div>
                                         </div>
-                                        <div id="worker-list-filters-content" class="app-section-content worker-content">list filters  Content</div>
+                                        <div id="worker-list-filters-content" class="app-section-content worker-content">
+                                                list filters  Content
+
+                                        </div>
                                         <div id="worker-benchmarks-content" class="app-section-content worker-content">benchmarks  Content</div>
                                         <div id="worker-resources-content" class="app-section-content worker-content">resources  Content</div>
                                         <div id="worker-history-content" class="app-section-content worker-content">history  Content</div>
@@ -122,11 +144,12 @@
                      </div>
 
                      <div id="provider" class="app-section">
-                            <div class="col-md-1">
-                                  <div id="provider-menu" class="app-section-menu">Provider</div>
+                            <div class="col-md-2">
+                                  <div id="provider-menu" class="app-section-menu">Provider</div>                                  
                             </div>
-                            <div class="col-md-11">
+                            <div class="col-md-10">
                                 <div id="provider-content" class="app-section-content">Provider Content</div>
+
                             </div>
                      </div>
 
