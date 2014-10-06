@@ -3,6 +3,14 @@
 	
 }
 
-.ui-control {
+.panel-container {
+	padding-right: 80px;
+}
+
+.ui-control-group {
 	padding-bottom: 10px;
+}
+
+.ui-control {
+	margin-top: 120px;
 }

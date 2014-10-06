@@ -55,63 +55,82 @@ $( document ).ready(function() {
 	});
 
 	var load = function() {
-		if (data.worker && data.worker.newFilterRatesByBenchmark) {
+		if (data.worker ) {
 			if (!sliders.worker) { sliders.worker = {} }
-			if (!sliders.worker.newFilterRatesByBenchmark) { sliders.worker.newFilterRatesByBenchmark = [] }
 
-			$.each(data.worker.newFilterRatesByBenchmark, function(index, value) {
-				var 	options = {
+			if(data.worker.newFilterRatesFixed) {
+				if (!sliders.worker.newFilterRatesFixed) { sliders.worker.newFilterRatesFixed = [] }
+
+				var	fixedRateData = data.worker.newFilterRatesFixed,
+					options = {
+						index: 0,
 						class: 'filter-rate-slider',
-						id: 'filter-rate-' + value.name,
-						name: 'filter-rate-' + value.name,
-						label: value.name,
+						id: 'filter-rate-' + fixedRateData.name,
+						name: 'filter-rate-' + fixedRateData.name,
+						label: fixedRateData.name,
 						type: 'slider',
-						colWidth: 6
+						colWidth: 8
 					},
 					template = createTemplate(options);
 
-				if (index > 0) {
-					$('#anchor-workerFilterRateByBenchmark').append("<br><br>");
-				}
+					console.log(data.worker.newFilterRatesFixed);
 
-				$('#anchor-workerFilterRateByBenchmark').append(template);
+					$('#anchor-workerFilterRateFixed').append(template);
 
-				sliders.worker.newFilterRatesByBenchmark.push( 
-					{
-						slider: $('#' + options.id) ,
-						options: value
-					}
-				);
-			});
+					sliders.worker.newFilterRatesFixed.push( 
+						{
+							slider: $('#' + options.id) ,
+							options: fixedRateData
+						}
+					);
+			}	
+
+			if(data.worker.newFilterRatesByBenchmark) {
+				
+				if (!sliders.worker.newFilterRatesByBenchmark) { sliders.worker.newFilterRatesByBenchmark = [] }
+
+				$.each(data.worker.newFilterRatesByBenchmark, function(index, value) {
+					var 	options = {
+							index: index,
+							class: 'filter-rate-slider',
+							id: 'filter-rate-' + value.name,
+							name: 'filter-rate-' + value.name,
+							label: value.name,
+							type: 'slider',
+							colWidth: 8
+						},
+						template = createTemplate(options);
+					
+
+					$('#anchor-workerFilterRateByBenchmark').append(template);
+
+					sliders.worker.newFilterRatesByBenchmark.push( 
+						{
+							slider: $('#' + options.id) ,
+							options: value
+						}
+					);
+				});
+			}
 		}
 
 	}
 
-	var render = function() {
-		$("#example_id").ionRangeSlider({
-		    min: 0,
-		    max: 5000,
-		    type: 'double',
-		    prefix: "",
-		    maxPostfix: "+",
-		    prettify: false,
-		    hasGrid: false,
-		    gridMargin: 7
-		});
+	var render = function() {		
 
 		if (sliders.worker) {
-			if (sliders.worker.newFilterRatesByBenchmark) {
-				$.each(sliders.worker.newFilterRatesByBenchmark, function(index, value) {
-					value.slider.ionRangeSlider(value.options);
+			//if (sliders.worker.newFilterRatesByBenchmark) {
+			$.each(sliders.worker, function(index, subSection) {
+				$.each(subSection, function(index, value) {
+				 	value.slider.ionRangeSlider(value.options);
 				})
-			}
+			});
 		}
 		//$("#example_id").ionRangeSlider("update");
 		//$('#filter-rate-0T')
 	}
 
-	var update = function(section, subSection) {
-		$("#example_id").ionRangeSlider("update");
+	var update = function(section, subSection) {		
 
 		if (sliders[section] && sliders[section][subSection])  {
 			$.each(sliders[section][subSection], function(index, value) {
@@ -121,7 +140,8 @@ $( document ).ready(function() {
 	}
 
 	var createTemplate = function(options) {
-		var template = "<div>";
+		var 	divClass = options.index===0 ? "ui-control-first" : "ui-control",
+			template = "<div class=\"" + divClass + "\">";
 
 		// add label
 		if (options.label) {
@@ -148,15 +168,16 @@ $( document ).ready(function() {
 
 var data = {
 	worker: {
-		newFilterRatesFixed: [
+		newFilterRatesFixed: 
 		{	
+			'name': 'fixed',
 			'from': 0,
 			'to': 100,
 			'min': 10,
 			'max': 30,
 			'unit': '$',
 			type: 'double'
-		}],
+		},
 
 		newFilterRatesByBenchmark: [
 		{
@@ -169,7 +190,7 @@ var data = {
 			type: 'double'
 		},
 		{
-			'name': 'Rendering',
+			'name': 'rendering',
 			'min': 0,
 			'max': 100,
 			'from': 40,
