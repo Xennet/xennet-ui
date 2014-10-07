@@ -71,9 +71,7 @@ $( document ).ready(function() {
 						type: 'slider',
 						colWidth: 8
 					},
-					template = createTemplate(options);
-
-					console.log(data.worker.newFilterRatesFixed);
+					template = createNewUIControlTemplate(options);
 
 					$('#anchor-workerFilterRateFixed').append(template);
 
@@ -87,7 +85,10 @@ $( document ).ready(function() {
 
 			if(data.worker.newFilterRatesByBenchmark) {
 				
-				if (!sliders.worker.newFilterRatesByBenchmark) { sliders.worker.newFilterRatesByBenchmark = [] }
+				if (!sliders.worker.newFilterRatesByBenchmark) { 
+
+					sliders.worker.newFilterRatesByBenchmark = [];
+				}
 
 				$.each(data.worker.newFilterRatesByBenchmark, function(index, value) {
 					var 	options = {
@@ -99,7 +100,7 @@ $( document ).ready(function() {
 							type: 'slider',
 							colWidth: 8
 						},
-						template = createTemplate(options);
+						template = createNewUIControlTemplate(options);
 					
 
 					$('#anchor-workerFilterRateByBenchmark').append(template);
@@ -112,34 +113,60 @@ $( document ).ready(function() {
 					);
 				});
 			}
+
+			if (data.worker.filterList) {
+				
+					var	options,
+						listOptions = {
+							valueNames: [ 'name', 'index' ],
+							item: createListItemTemplate(options)
+						},
+						filterList;
+
+					
+
+					filterList = new List('anchor-workerFilterList', listOptions, data.worker.filterList);
+
+					// filterList.add({
+					//   name: "Gustaf Lindqvist",
+					//   born: 1983
+					// });								
+			}
 		}
 
 	}
 
 	var render = function() {		
 
-		if (sliders.worker) {
-			//if (sliders.worker.newFilterRatesByBenchmark) {
-			$.each(sliders.worker, function(index, subSection) {
+		$.each(sliders, function(sectionKey, section) {
+			$.each(section, function(subSectionKey, subSection) {
 				$.each(subSection, function(index, value) {
+
+					value.options.onFinish = function(obj) {
+						console.log(sectionKey, subSectionKey, obj);
+					}
+
 				 	value.slider.ionRangeSlider(value.options);
+
+				 	
 				})
 			});
-		}
-		//$("#example_id").ionRangeSlider("update");
-		//$('#filter-rate-0T')
+		})		
 	}
 
 	var update = function(section, subSection) {		
 
 		if (sliders[section] && sliders[section][subSection])  {
 			$.each(sliders[section][subSection], function(index, value) {
+
 				value.slider.ionRangeSlider("update");
+
+				console.log('update', value.slider.ionRangeSlider("update"))
 			})
 		}
 	}
 
-	var createTemplate = function(options) {
+	var createNewUIControlTemplate = function(options) {
 		var 	divClass = options.index===0 ? "ui-control-first" : "ui-control",
 			template = "<div class=\"" + divClass + "\">";
 
@@ -151,10 +178,14 @@ $( document ).ready(function() {
 
 		// add input element
 		template += "<div class='col-md-" + options.colWidth + " '>";
-		template += "<input type='text' class=\"" + options.class + "\" id=\"" + options.id + "\"name=\"" + options.name + "\"value=\"\" data-min='30'/>" + "</div";
+		template += "<input type='text' class=\"" + options.class + "\" id=\"" + options.id + "\"name=\"" + options.name + "\"value=\"\">" + "</div";
 
 		template += "</div>";
 		return template;
+	}
+
+	var createListItemTemplate = function(options) {
+		return  '<li><h3 class="name"></h3><p class="index"></p></li>';
 	}
 
 	/******************************************************/
@@ -171,82 +202,94 @@ var data = {
 		newFilterRatesFixed: 
 		{	
 			'name': 'fixed',
-			'from': 0,
-			'to': 100,
-			'min': 10,
-			'max': 30,
-			'unit': '$',
+			
+			'min': 100,
+			'max': 300,
+			'from': 150,
+			'to': 180,
+			'prefix': '$',
 			type: 'double'
 		},
 
 		newFilterRatesByBenchmark: [
-		{
+		{	
 			'name': '0T',
-			'min': 0,
-			'max': 100,
-			'to': 10,
-			'from': 30,
+			min: 0,
+			max: 100,
+			from: 20,
+			to: 70,			
 			'prefix': '$',
 			type: 'double'
 		},
 		{
 			'name': 'rendering',
-			'min': 0,
-			'max': 100,
+			'min': 100,
+			'max': 1000,
 			'from': 40,
 			'to': 80,
 			'prefix': '$',
 			type: 'double'
 		}],
 
-		filterList: []
+		filterList: [
+		{
+			index: 1,
+			name: 'aaa',
+			rates: [
+				{
+					name: '0T',
+					min: '1$',
+					max: '4$'
+				},
+				{
+					name: 'rendering',
+					min: '10$',
+					max: '20$'
+				}
+			],
+			container: [
+				{
+					name: 'RAM',
+					type: 'range',
+					min: '256M',
+					max: '4G'
+				},
+				{
+					name: 'OS',
+					type: 'list',
+					values: ['ubuntu', 'windows 7']
+				}
+			]
+		},
+		{
+			index: 2,
+			name: 'bbb',
+			rates: [
+				{
+					name: '0T',
+					min: '5$',
+					max: '8$'
+				},
+				{
+					name: 'rendering',
+					min: '17$',
+					max: '240$'
+				}
+			],
+			container: [
+				{
+					name: 'RAM',
+					type: 'range',
+					min: '256M',
+					max: '4G'
+				},
+				{
+					name: 'OS',
+					type: 'list',
+					values: ['ubuntu', 'windows 7']
+				}
+			]
+		},
+		]
 	}
 }
-
-// angular.module('zennetApp', [])
-// 	.controller('zennetController', ['$scope', function($scope) {
-// 		$scope.todos = [
-// 		      {text:'learn angular', done:true},
-// 		      {text:'build an angular app', done:false}];
-
-// 		$scope.workerNewFilterRatesFixed = [
-// 			{	
-// 				'from': 0,
-// 				'to': 100,
-// 				'min': 10,
-// 				'max': 30,
-// 				'unit': '$'
-// 			}
-// 		];
-
-// 		$scope.workerNewFilterRatesByBenchmark = [
-// 			{
-// 				'name': '0T',
-// 				'min': 0,
-// 				'max': 100,
-// 				'to': 10,
-// 				'from': 30,
-// 				'prefix': '$'
-// 			},
-// 			{
-// 				'name': 'Rendering',
-// 				'min': 0,
-// 				'max': 100,
-// 				'from': 40,
-// 				'to': 80,
-// 				'prefix': '$'
-// 			}
-// 		];
-
-// 		$.each($scope.workerNewFilterRatesByBenchmark, function(index, value) {
-// 			console.log(value, $("#filter-rate-" + value.name).attr('id'));
-
-// 			$("#filter-rate-" + value.name).ionRangeSlider({
-// 				min: value.min,
-// 				max: value.max,
-// 				from: value.from,
-// 				to: value.to,
-// 				prefix: value.prefix
-// 			});
-// 		});
-// }]);	
