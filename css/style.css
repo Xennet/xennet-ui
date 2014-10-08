@@ -103,3 +103,28 @@ input.search:focus {
   top:-10px;
   right:-5px;
 }
+
+.list-element {
+	height: 40px;
+	cursor: pointer;
+}
+
+.list-element-header {
+	height: 40px;
+}
+
+.list-element-content {
+	display: none;
+	width: 100%;
+}
+
+.content-container {
+	display: inline-block;
+	width: 100%;	
+}
+
+.buttons-container {
+	display: inline-block;
+	width: 100%;
+	margin-top: 20px;
+}

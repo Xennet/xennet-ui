@@ -121,12 +121,50 @@ $( document ).ready(function() {
 							valueNames: [ 'name', 'index' ],
 							item: createListItemTemplate(options)
 						},
+						listData = data.worker.filterList,
 						filterList;
 
 					
+					var	height,
+						duration = 600;
 
-					filterList = new List('anchor-workerFilterList', listOptions, data.worker.filterList);
+					$.each(listData, function(index, value) {
+						value.index = index;
+					});
 
+					filterList = new List('anchor-workerFilterList', listOptions, listData);
+
+					$('.list-element').click(function(e) {
+						var	expandClass = 'expand',
+							$content = $(this).find('.list-element-content'),
+							$expandBtn = $(this).find('span.glyphicon-plus'),
+							$collapseBtn = $(this).find('span.glyphicon-minus');
+
+						if ( !$(this).hasClass(expandClass)) {
+							var	index = $(this).find('span.index').text();
+
+							if (!$(this).hasClass('loaded')) {
+								loadListItemContent(index, this, 'filter');
+								$(this).addClass('loaded')
+							}
+
+							height = $(this).css('height');
+							$(this).addClass(expandClass).animate({height: '220px'}, duration);
+							$content.delay(duration).css({'display': 'inline-block'});
+							$expandBtn.hide();
+							$collapseBtn.show();
+						}
+						else {
+							$(this).removeClass(expandClass).animate({height: height}, duration);
+							$content.css({'display': 'none'});
+							$expandBtn.delay(duration).show();
+							$collapseBtn.delay(duration).hide();
+						}
+					});
+
+					$('.btn-default').click(function(e) {
+						e.stopPropagation();
+					})
 					// filterList.add({
 					//   name: "Gustaf Lindqvist",
 					//   born: 1983
@@ -154,14 +192,13 @@ $( document ).ready(function() {
 		})		
 	}
 
-	var update = function(section, subSection) {		
+	var update = function(section, subSection) {
 
-		if (sliders[section] && sliders[section][subSection])  {
-			$.each(sliders[section][subSection], function(index, value) {
-
-				value.slider.ionRangeSlider("update");
-
-				console.log('update', value.slider.ionRangeSlider("update"))
+		if (sliders[section] )  {
+			$.each(sliders[section], function(key, subSection) {
+				$.each(subSection, function(index, sliderObj) {
+					sliderObj.slider.ionRangeSlider("update");
+				})
 			})
 		}
 	}
@@ -185,7 +222,100 @@ $( document ).ready(function() {
 	}
 
 	var createListItemTemplate = function(options) {
-		return  '<li><h3 class="name"></h3><p class="index"></p></li>';
+		var	ratesTemplate = "",
+			containerTemplate = "",
+			template;
+
+		template =
+		  '<li class="list-element"> \
+			 <div class="row-fluid list-element-header"> \
+                                          <div class="col-md-1"> \
+					<span class="glyphicon glyphicon-plus"></span> \
+					<span class="glyphicon glyphicon-minus" style="display:none"></span> \
+				</div> \
+				<div class="col-md-1"> \
+					<span class="index"></span> \
+				</div> \
+				<div class="col-md-1"> \
+					<span class="name"></span> \
+				</div> \
+			</div> \
+			<div class="row-fluid list-element-content"> \
+				<div class="row-fluid content-container"> \
+					<div class="col-md-6 list-element-content-rates"> \
+						<div class="row"><h4>RATES</h4></div> \
+					</div> \
+					<div class="col-md-6 list-element-content-container"> \
+						<div class="row"><h4>CONTAINER</h4></div> \
+					</div> \
+				</div> \
+				<div class="row-fluid buttons-container"> \
+					<div class="col-md-10"></div> \
+					<div class="col-md-1"> \
+						<button type="button" class="btn btn-default">Default</button> \
+					</div> \
+					<div class="col-md-1"> \
+						<button type="button" class="btn btn-default">Default</button> \
+					</div> \
+				</div> \
+			</div> \
+		</li>';
+
+		return template;
+	}
+
+	// load the list item contents (rates, container) after expanding the list item for the first time
+	var loadListItemContent  = function(index, el, type) {
+		var	itemData,
+			$rates,
+			$container,
+			template,
+			i;
+
+
+		if(type === 'filter') {
+			if (index < 0 || index >= data.worker.filterList.length) return;
+
+			itemData = data.worker.filterList[index];
+
+			$rates = $(el).find('.list-element-content-rates');
+			$container = $(el).find('.list-element-content-container');
+
+			// Rates templates
+			$.each(itemData.rates, function(index, value) {
+				template = 
+					'<div class="row"> \
+						<div class="col-md-2">' + value.name + '</div> \
+						<div class="col-md-10">' + value.min + ' - ' + value.max + '</div> \
+					</div>';
+				$rates.append(template);
+			})
+
+			// Container templates
+			$.each(itemData.container, function(index, value) {
+				template = 
+					'<div class="row"> \
+					<div class="col-md-2">' + value.name + '</div>' ;
+
+				if (value.type === 'range') {
+					template += '<div class="col-md-10">' + value.min + ' - ' + value.max + '</div>';
+				}
+				else if (value.type === 'list') {
+					template += '<div class="col-md-10">';
+
+					for (i=0; i<value.values.length; ++i) {
+						if (i > 0) { template += ', '; }
+						template += value.values[i];
+					}
+
+					template += '</div>' ;
+				}
+
+				template += '</div>'
+
+				$container.append(template);
+			})
+		}
 	}
 
 	/******************************************************/
@@ -233,7 +363,6 @@ var data = {
 
 		filterList: [
 		{
-			index: 1,
 			name: 'aaa',
 			rates: [
 				{
@@ -262,7 +391,6 @@ var data = {
 			]
 		},
 		{
-			index: 2,
 			name: 'bbb',
 			rates: [
 				{
