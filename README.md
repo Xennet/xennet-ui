@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 starter-kit
 ===========
 
@@ -34,3 +35,9 @@ Contact
 ====
 
 [www.emberjs.com](http://www.emberjs.com)
+=======
+xennet-ui
+=========
+
+ui client (html/javascript) of the Zennet app
+>>>>>>> f149ffd32b91d20d8014150d8aa7ae65a965bbeb
