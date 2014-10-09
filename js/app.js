@@ -149,8 +149,13 @@ $( document ).ready(function() {
 							}
 
 							height = $(this).css('height');
+							console.log(height);
 							$(this).addClass(expandClass).animate({height: '220px'}, duration);
 							$content.delay(duration).css({'display': 'inline-block'});
+
+							// height = $content.css('height');
+							// console.log(height);
+
 							$expandBtn.hide();
 							$collapseBtn.show();
 						}
