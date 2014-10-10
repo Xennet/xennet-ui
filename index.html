@@ -29,6 +29,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               <li ><a class="navbar-link" name="home">Home</a></li>
+              <li ><a class="navbar-link" name="dashboard">Dashboard</a></li>
               <li class="active"><a class="navbar-link" name="worker">Worker</a></li>
               <li><a class="navbar-link" name="provider">Provider</a></li>
               <li><a class="navbar-link" name="wallet">Wallet</a></li>
@@ -62,14 +63,74 @@
                               </div>
                       </div>                     
 
+                     <div id="dashboard" class="app-section">
+                          <div class="container-fluid dashboard-container">
+                                
+                                <!-- Computer dashboard -->
+                                      <div class="row-fluid">
+                                          <div class="col-md-12">
+                                              <!-- <h3>Money</h3> -->
+                                          </div>  
+                                      </div> 
+                                      <div class="row-fluid kpi-block">
+                                          <div class="col-md-3 widget-container">
+                                                <div class="kpi widget">
+                                                          <div class="widget-title kpi-title">Uptime</div>
+                                                          <span class="kpi-value">1:23:41</span><span class="kpi-label"></span>
+                                                </div>
+                                          </div>  
+                                          <div class="col-md-3 widget-container">
+                                                <div class="kpi widget">
+                                                          <div class="widget-title kpi-title">Profit (Total)</div>
+                                                          <span class="kpi-value">$12.8</span><span class="kpi-label">this session</span>
+                                                </div>
+                                          </div>  
+                                          <div class="col-md-3 widget-container">
+                                                <div class="kpi widget">
+                                                            <div class="widget-title kpi-title">Profit (Rate)</div>
+                                                            <span class="kpi-value">$0.32</span><span class="kpi-label">per minute</span>
+                                                </div>
+                                          </div>
+                                          <div class="col-md-3 widget-container">
+                                                <div class="kpi widget">
+                                                            <div class="widget-title kpi-title"># Connections</div>
+                                                            <span class="kpi-value">2 / 51</span><span class="kpi-label">publishers / providers</span>
+                                                </div>
+                                          </div>
+                                      </div>
+
+                                       <div class="row-fluid gauge-block">
+                                          <div class="col-md-4 widget-container">
+                                                <div class="gauge widget ">
+                                                      <!-- <div class="widget-title gauge-title">Blah</div> -->
+                                                      <div class="hc-gauge" id="gauge1"></div>
+                                                </div>
+                                          </div> 
+                                          <div class="col-md-4 widget-container">
+                                                <div class="gauge widget ">
+                                                      <div class="hc-gauge" id="gauge2"></div>
+                                                </div>
+                                          </div> 
+                                          <div class="col-md-4 widget-container">
+                                                <div class="gauge widget ">
+                                                      <div class="hc-gauge" id="gauge3"></div>
+                                                </div>
+                                          </div> 
+                                              
+                                          </div> 
+                                      </div>  
+                                  
+                          </div>
+                     </div>
+
                       <div id="worker" class="app-section">
                             <div class="container-fluid">
                                <div class="row-fluid">
                                     <div class="col-md-2">
                                         <div id="worker-menu" class="app-section-menu">
                                               <ul class="nav nav-pills nav-stacked">
-                                                  <li ><a class="section-menu-link worker-section-menu-link" name="worker-new-filter">New Filter</a></li>
-                                                  <li class="active"><a class="section-menu-link worker-section-menu-link" name="worker-list-filters">List Filters</a></li>
+                                                  <li class="active"><a class="section-menu-link worker-section-menu-link" name="worker-new-filter">New Filter</a></li>
+                                                  <li ><a class="section-menu-link worker-section-menu-link" name="worker-list-filters">List Filters</a></li>
                                                   <li><a  class="section-menu-link worker-section-menu-link" name="worker-benchmarks">Benchmarks</a></li>
                                                   <li ><a class="section-menu-link worker-section-menu-link" name="worker-resources">Resources</a></li>
                                                   <li ><a class="section-menu-link worker-section-menu-link" name="worker-history">History</a></li>
@@ -84,7 +145,7 @@
                                         <div id="worker-new-filter-content" class="app-section-content worker-content">
                                               <div class="row-fluid"><h3>NEW FILTER</h3></div>
                                               <div class="row-fluid">
-                                                    <div class="col-md-6 panel-container">
+                                                    <div class="col-md-5 panel-container">
                                                         <div class="row">
                                                             <h4>RATES</h4>
                                                             
@@ -113,8 +174,29 @@
                                                                 </div>
                                                           </div>
                                                     </div>
-                                                    <div class="col-md-6 panel-container"><h4>CONTAINER</h4></div>
+                                                    <div class="col-md-5 panel-container" id="newF">
+                                                          <div class="row">
+                                                              <h4>CONTAINER</h4>
+                                                              
+                                                              <div class="muted">describes the virtual machine that will run incoming work</div>
+                                                          </div>
+                                                          
+                                                                <div class="panel panel-default"><div class="panel-body">
+                                                                    <div class="row ui-control-group" id="anchor-workerFilterContainer">
+                                                                    </div>                                                              
+                                                              </div></div>                                                          
+                                                    </div>
                                               </div>
+
+                                              <div class="row-fluid buttons-container filter-buttons-container"> 
+                                                    <div class="col-md-10"></div> 
+                                                    <div class="col-md-1"> 
+                                                          <button type="button" class="btn btn-default">Default</button> 
+                                                    </div> 
+                                                    <div class="col-md-1"> 
+                                                          <button type="button" class="btn btn-default">Default</button> 
+                                                    </div> 
+                                               </div> 
                                         </div>
 
                                         <! ---------------------------  List Filters ------------------------------>
@@ -179,6 +261,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.3/angular.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   <script src="http://listjs.com/no-cdn/list.js"></script>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <script src="http://code.highcharts.com/highcharts-more.js"></script>
+  <script src="http://code.highcharts.com/modules/solid-gauge.src.js"></script>
   <script src="js/ion.rangeSlider.min.js"></script>
   <script src="js/app.js"></script>
 

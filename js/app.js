@@ -54,33 +54,19 @@ $( document ).ready(function() {
 		update(currentSectionName, currentSubSectionName);
 	});
 
+
 	var load = function() {
 		if (data.worker ) {
 			if (!sliders.worker) { sliders.worker = {} }
 
+			
+
 			if(data.worker.newFilterRatesFixed) {
-				if (!sliders.worker.newFilterRatesFixed) { sliders.worker.newFilterRatesFixed = [] }
+				if (!sliders.worker.newFilterRatesFixed) { 
+					sliders.worker.newFilterRatesFixed = [] 
+				}
 
-				var	fixedRateData = data.worker.newFilterRatesFixed,
-					options = {
-						index: 0,
-						class: 'filter-rate-slider',
-						id: 'filter-rate-' + fixedRateData.name,
-						name: 'filter-rate-' + fixedRateData.name,
-						label: fixedRateData.name,
-						type: 'slider',
-						colWidth: 8
-					},
-					template = createNewUIControlTemplate(options);
-
-					$('#anchor-workerFilterRateFixed').append(template);
-
-					sliders.worker.newFilterRatesFixed.push( 
-						{
-							slider: $('#' + options.id) ,
-							options: fixedRateData
-						}
-					);
+				createUIControl('newFilterRatesFixed', '#anchor-workerFilterRateFixed');
 			}	
 
 			if(data.worker.newFilterRatesByBenchmark) {
@@ -90,28 +76,17 @@ $( document ).ready(function() {
 					sliders.worker.newFilterRatesByBenchmark = [];
 				}
 
-				$.each(data.worker.newFilterRatesByBenchmark, function(index, value) {
-					var 	options = {
-							index: index,
-							class: 'filter-rate-slider',
-							id: 'filter-rate-' + value.name,
-							name: 'filter-rate-' + value.name,
-							label: value.name,
-							type: 'slider',
-							colWidth: 8
-						},
-						template = createNewUIControlTemplate(options);
-					
+				createUIControl('newFilterRatesByBenchmark', '#anchor-workerFilterRateByBenchmark');				
+			}
 
-					$('#anchor-workerFilterRateByBenchmark').append(template);
+			if(data.worker.newFilterContainer) {
+				
+				if (!sliders.worker.newFilterContainer) { 
 
-					sliders.worker.newFilterRatesByBenchmark.push( 
-						{
-							slider: $('#' + options.id) ,
-							options: value
-						}
-					);
-				});
+					sliders.worker.newFilterContainer = [];
+				}
+
+				createUIControl('newFilterContainer', '#anchor-workerFilterContainer');				
 			}
 
 			if (data.worker.filterList) {
@@ -136,12 +111,14 @@ $( document ).ready(function() {
 
 					$('.list-element').click(function(e) {
 						var	expandClass = 'expand',
+							expandHeight,
 							$content = $(this).find('.list-element-content'),
-							$expandBtn = $(this).find('span.glyphicon-plus'),
-							$collapseBtn = $(this).find('span.glyphicon-minus');
+							$buttons = $(this).find('.buttons-container'),
+							$expandIcon = $(this).find('span.glyphicon-plus'),
+							$collapseIcon = $(this).find('span.glyphicon-minus'),
+							index = $(this).find('span.index').text();
 
-						if ( !$(this).hasClass(expandClass)) {
-							var	index = $(this).find('span.index').text();
+						if ( !$(this).hasClass(expandClass)) {						
 
 							if (!$(this).hasClass('loaded')) {
 								loadListItemContent(index, this, 'filter');
@@ -149,21 +126,29 @@ $( document ).ready(function() {
 							}
 
 							height = $(this).css('height');
-							console.log(height);
-							$(this).addClass(expandClass).animate({height: '220px'}, duration);
-							$content.delay(duration).css({'display': 'inline-block'});
+							$(this).addClass(expandClass);
 
-							// height = $content.css('height');
-							// console.log(height);
+							expandHeight = $content.height() + 60;
+							$(this).animate({height: expandHeight}, duration);
 
-							$expandBtn.hide();
-							$collapseBtn.show();
+
+							$content.css({'display': 'inline-block'}).animate({opacity: 1}, duration);
+							
+
+							$expandIcon.hide();
+							$collapseIcon.show();
 						}
 						else {
 							$(this).removeClass(expandClass).animate({height: height}, duration);
-							$content.css({'display': 'none'});
-							$expandBtn.delay(duration).show();
-							$collapseBtn.delay(duration).hide();
+
+							$content.animate({opacity: 0}, duration);
+							setTimeout(function() {
+								$content.css({'display': 'none'});
+							},
+							duration);
+
+							$expandIcon.delay(duration).show();
+							$collapseIcon.delay(duration).hide();
 						}
 					});
 
@@ -194,7 +179,9 @@ $( document ).ready(function() {
 				 	
 				})
 			});
-		})		
+		})
+
+		initGauges();
 	}
 
 	var update = function(section, subSection) {
@@ -208,8 +195,35 @@ $( document ).ready(function() {
 		}
 	}
 
+	var createUIControl = function(name, anchor) {
+		$.each(data.worker[name], function(index, value) {
+					
+			var 	options = {
+					index: index,
+					class: 'filter-rate-slider',
+					id: 'filter-rate-' + (value.name).replace(/\ /g, '-'),
+					name: 'filter-rate-' + (value.name).replace(/\ /g, '-'),
+					label: value.name,
+					type: value.dataType,
+					colWidth: 9
+				},
+				template = createNewUIControlTemplate(options);
+			
+			$(anchor).append(template);
+
+			if (options.type === 'range') {
+				sliders.worker[name].push( 
+					{
+						slider: $('#' + options.id) ,
+						options: value
+					}
+				);
+			}
+		});
+	}
+
 	var createNewUIControlTemplate = function(options) {
-		var 	divClass = options.index===0 ? "ui-control-first" : "ui-control",
+		var 	divClass = options.index===0 ? "ui-control ui-control-first" : "ui-control",
 			template = "<div class=\"" + divClass + "\">";
 
 		// add label
@@ -323,6 +337,83 @@ $( document ).ready(function() {
 		}
 	}
 
+	var initGauges = function() {
+		$("#gauge1").highcharts(Highcharts.merge(gaugeOptions, {
+		        yAxis: {
+		            min: 0,
+		            max: 100,
+		            title: {
+		                text: 'CPU Usage'
+		            }
+		        },
+
+		       
+
+		        series: [{
+		            name: 'cpu',
+		            data: [80],
+		            dataLabels: {
+		                format: '<div style="text-align:center"><span class="gauge-value">{y}%</span><br/>' +
+		                       '<span class="gauge-label">&nbsp;</span></div>'
+		            },
+		            tooltip: {
+		                valueSuffix: ''
+		            }
+		        }]
+
+		    }));
+
+		$("#gauge2").highcharts(Highcharts.merge(gaugeOptions, {
+		        yAxis: {
+		            min: 0,
+		            max: 100,
+		            title: {
+		                text: 'RAM usage'
+		            }
+		        },
+
+		       
+
+		        series: [{
+		            name: 'ram',
+		            data: [30],
+		            dataLabels: {
+		                format: '<div style="text-align:center"><span class="gauge-value">{y}%</span><br/>' +
+		                       '<span class="gauge-label">&nbsp;</span></div>'
+		            },
+		            tooltip: {
+		                valueSuffix: ''
+		            }
+		        }]
+
+		    }));
+
+		$("#gauge3").highcharts(Highcharts.merge(gaugeOptions, {
+		        yAxis: {
+		            min: 0,
+		            max: 200,
+		            title: {
+		                text: 'Something Else'
+		            }
+		        },
+
+		       
+
+		        series: [{
+		            name: 'Speed',
+		            data: [80],
+		            dataLabels: {
+		                format: '<div style="text-align:center"><span class="gauge-value">{y}</span><br/>' +
+		                       '<span class="gauge-label">units</span></div>'
+		            },
+		            tooltip: {
+		                valueSuffix: ' units'
+		            }
+		        }]
+
+		    }));
+	}
+
 	/******************************************************/
 	/******************************************************/
 	load();
@@ -334,21 +425,22 @@ $( document ).ready(function() {
 
 var data = {
 	worker: {
-		newFilterRatesFixed: 
+		newFilterRatesFixed: [
 		{	
 			'name': 'fixed',
-			
+			dataType: 'range',
 			'min': 100,
 			'max': 300,
 			'from': 150,
 			'to': 180,
 			'prefix': '$',
 			type: 'double'
-		},
+		}],
 
 		newFilterRatesByBenchmark: [
 		{	
 			'name': '0T',
+			dataType: 'range',
 			min: 0,
 			max: 100,
 			from: 20,
@@ -358,12 +450,60 @@ var data = {
 		},
 		{
 			'name': 'rendering',
+			dataType: 'range',
 			'min': 100,
 			'max': 1000,
 			'from': 40,
 			'to': 80,
 			'prefix': '$',
 			type: 'double'
+		}],
+
+		newFilterContainer: [
+		{
+			name: 'RAM',
+			dataType: 'range',
+			min: 1,
+			max: 4,
+			prefix: 'G',
+			type: 'double'
+		},
+		{
+			name: 'Disk Space',
+			dataType: 'range',
+			min: 1,
+			max: 4,
+			prefix: 'G',
+			type: 'double'	
+		},
+		{
+			name: 'Bandwidth',
+			dataType: 'range',
+			min: 1,
+			max: 10,
+			prefix: 'Mb/s',
+			type: 'double'
+		},
+		{
+			name: 'Cores',
+			dataType: 'range',
+			min: 1,
+			max: 4,
+			prefix: '',
+			type: 'double'	
+		},
+		{
+			name: 'Operating System',
+			dataType: 'list',
+			values: ['win-7', 'win-8', 'iOS', 'ubuntu']	
+		},
+		{
+			name: 'Identity Difficulty',
+			dataType: 'range',
+			min: 1,
+			max: 10,
+			prefix: '',
+			type: 'double'	
 		}],
 
 		filterList: [
@@ -426,3 +566,60 @@ var data = {
 		]
 	}
 }
+
+var gaugeOptions = {
+
+        chart: {
+            type: 'solidgauge'
+        },
+
+        title: null,
+
+        pane: {
+            center: ['50%', '85%'],
+            size: '140%',
+            startAngle: -90,
+            endAngle: 90,
+            background: {
+                backgroundColor: '#EEE',
+                innerRadius: '60%',
+                outerRadius: '100%',
+                shape: 'arc'
+            }
+        },
+
+        tooltip: {
+            enabled: false
+        },
+
+        // the value axis
+        yAxis: {
+            stops: [
+                [0, 'steelblue'] // yellow
+            ],
+            lineWidth: 0,
+            minorTickInterval: null,
+            tickPixelInterval: 400,
+            tickWidth: 0,
+            title: {
+                y: -70
+            },
+            labels: {
+                y: 16
+            }
+        },
+
+        plotOptions: {
+            solidgauge: {
+                dataLabels: {
+                    y: 5,
+                    borderWidth: 0,
+                    useHTML: true
+                }
+            }
+        },
+
+         credits: {
+            enabled: false
+        },
+    };
