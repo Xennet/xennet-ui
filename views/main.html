@@ -1,0 +1,68 @@
+
+<div class="row" style="background-image: url('images/header.jpg');height:237px;" >
+    <div class="container" style="padding-top: 30px">
+        <h1 class="gray-head-text">WELCOME TO ZENNET, </h1>
+        <h1>THE PUBLIC SUPERCOMPUTER</h1>
+    </div>
+</div>
+
+<div class="container">
+
+    <h4 class="gray-head-text">TO START EARNING ZENCOINS, FOLLOW THESE 2 EASY STEPS</h4>
+    <div class="col-md-12" >
+        <div class="col-md-4 ">
+            <div class="col-md-3 text-right" style="font-size: 70px;padding-right: 0px">01</div>
+            <div class="col-md-9 text-left" style="padding-left: 5px">
+                <h4>COMPUTER TYPE</h4>
+                <select ng-model="selectComputer" class="form-control">
+                    <option value="Personal Computer">Personal Computer</option>
+                    <option value="Personal Computer">Dedicated to Zennet</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="col-md-3 text-right" style="font-size: 70px;padding-right: 0px">02</div>
+            <div class="col-md-9 text-left">
+                <h4>SCHEDULE</h4>
+                <div class="col-md-12" ng-click="toggleEnable()"><img src="images/radio-enable.png" ng-if="radioEnable == true" ><img src="images/radio-disable.png" ng-if="radioEnable == false" > &nbsp;Work only when idle </div>
+                <div class="col-md-12">You can setup a Specific Working Schedule in the <a> preference</a> tab</div>
+            </div>
+        </div>
+        <div class="col-md-3 ">
+            <button type="button" class="btn btn-success btn-lg" ng-click="toggleStart()" ng-if="started == false || started == undefined"><large>START!</large></button>
+            <button type="button" class="btn btn-danger btn-lg" ng-click="toggleStart()" ng-if="started == true"><large>STOP!</large></button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+
+
+
+</div>
+
+<div class="footer footer-bottom">
+
+    <div class="container">
+        <div class="col-md-12"><h2 class="text-blue">SO WHATS NEXT ?</h2></div>
+        <div class="col-md-4 gray-text">
+            <div class="col-md-3"><img src="images/icon1.png" /></div>
+            <div class="col-md-9">
+                <b> Monitor running tasks in the <span class="highlight">connections</span> tab</b>
+            </div>
+        </div>
+        <div class="col-md-4 gray-text">
+            <div class="col-md-3"><img src="images/icon2.png" /></div>
+            <div class="col-md-9">
+                <b> view system statistics in the <span class="highlight">dashboard</span> tab</b>
+            </div>
+        </div>
+
+        <div class="col-md-4 gray-text">
+            <div class="col-md-3"><img src="images/icon3.png" /></div>
+            <div class="col-md-9">
+                <b> finely tune the performance in the <span class="highlight">advanced</span> tab</b>
+            </div>
+        </div>
+    </div>
+</div>

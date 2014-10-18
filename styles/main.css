@@ -1,0 +1,515 @@
+/* Space out content a bit */
+/*@font-face {*/
+    /*font-family: 'Titillium Lt';*/
+    /*src: url('http://fonts.googleapis.com/css?family=Titillium+Web');*/
+/*}*/
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web);
+
+body {
+  /*padding-top: 20px;*/
+  /*padding-bottom: 20px;*/
+    font-family: 'Titillium web';
+
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+  background: #025575;
+  color: #ffffff !important;
+}
+
+.nav-pills > li > a{
+    color: white !important;
+    padding-top: 20px !important;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus{
+    background: #69E8EF !important;
+    color: #025575 !important;
+    border-radius: 0px;
+    height: 70px;
+    border-bottom: solid #58C3CB;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  /*.container {
+    max-width: 730px;
+  }*/
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Space out the masthead */
+  /*.header {*/
+    /*margin-bottom: 30px;*/
+  /*}*/
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+
+#sidebar {
+    height: 100%;
+    padding-right: 0;
+    padding-top: 20px;
+}
+#sidebar .nav {
+    width: 95%;
+}
+#sidebar > li {
+    border:0 #BCBCBC solid;
+    border-bottom-width:1px;
+    height: 50px;
+}
+
+#sidebar > li > a{
+    padding-top: 15px;
+}
+
+#sidebar > li.active{
+    background-color: #025575;
+    width:103%;
+    height:50px;
+    margin-top: 0px;
+}
+
+#sidebar > li.active > a{
+    color: #ffffff;
+    padding-top: 15px;
+
+}
+
+/* collapsed sidebar styles */
+@media screen and (max-width: 767px) {
+    .row-offcanvas {
+        position: relative;
+        -webkit-transition: all 0.25s ease-out;
+        -moz-transition: all 0.25s ease-out;
+        transition: all 0.25s ease-out;
+    }
+    .row-offcanvas-right
+  .sidebar-offcanvas {
+        right: -41.6%;
+    }
+
+    .row-offcanvas-left
+  .sidebar-offcanvas {
+        left: -41.6%;
+    }
+    .row-offcanvas-right.active {
+        right: 41.6%;
+    }
+    .row-offcanvas-left.active {
+        left: 41.6%;
+    }
+    .sidebar-offcanvas {
+        position: absolute;
+        top: 0;
+        width: 41.6%;
+    }
+    #sidebar {
+        padding-top:0;
+    }
+}
+
+.main {
+    width: 50%;
+}
+
+.slider-control {
+    height: 1em;
+    padding-top: .5em;
+}
+
+.slider {
+    height: 2px;
+    border: 1px solid black;
+}
+
+.slider-handle {
+    height: 1em;
+    width: 1em;
+    border: 1px solid black;
+    border-radius: 2px;
+    background: #fff;
+    cursor: pointer;
+}
+.slider-handle:hover {
+    background: #ddd;
+}
+
+.rate-disable{
+    pointer-events : none;
+    opacity: 0.3;
+}
+
+/*ul,ol {
+    height: 60px !important;
+    margin-top:0 !important;
+}*/
+
+.nav-pills > li {
+    float: left;
+    height: 100% !important;
+
+}
+
+.highlight{
+    color:highlight;
+}
+
+.vcenter {
+    padding: 20px 0px;
+}
+.btn-lg, .btn-group-lg > .btn{
+    border-radius: 0px !important;
+}
+.btn-success{
+    /*background-color: #449d44; *//*5CB85C*/
+    /*border-color: #398439;          *//*4CAE4C*/
+    /*color: #FFFFFF;*/
+    padding-left:20px;
+    padding-right: 20px;
+
+}
+
+.btn-danger{
+    /*background-color: #449d44; *//*5CB85C*/
+    /*border-color: #398439;          *//*4CAE4C*/
+    /*color: #FFFFFF;*/
+    padding-left:25px;
+    padding-right: 25px;
+}
+
+.gray-text{
+    color:#c4c4c4;
+}
+
+.gray-head-text{
+    color:#656565;
+}
+
+.ul-margin{
+    margin: 0px 0px 5px 0px;
+
+}
+.nav > li > a:hover,.nav > li > a:focus{
+    background-color:transparent !important;
+
+}
+.nav > li > a{
+    outline: 0;
+}
+
+.left-ul{
+    background-color: #defafd;
+}
+
+
+.advanced-header{
+    color: #23c7d1;
+}
+.advanced-header h3{
+    margin: 0px 0px 15px 0px;
+    padding-bottom: 5px;
+    border-bottom: solid 2px;
+}
+#rates h4 ,#container h4, #bidder h4{
+    margin: 0px 0px 10px 0px;
+    font-family: verdana;
+    color:#717171;
+}
+
+.advanced-container{
+    padding: 5px 0px;
+    background: #f4f4f4;
+}
+.advanced-container h4{
+    margin: 0px;
+}
+.change-value{
+    color: #045573;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.h-line{
+    background-color: #23c7d1;
+    height: 3px;
+}
+
+.tagName{
+    color: #045573;
+    font-size: 20px;
+}
+
+.rate-check-padding{
+    padding: 35px 0px 10px 20px
+}
+
+.container-bottom-margin{
+    margin-bottom: 5px;
+}
+
+.btn-style{
+    background: #025575;
+    border-radius: 0 !important;
+    color: #fff;
+    border-bottom: solid #003147;
+    width: 100px;
+
+}
+
+.btn-style:hover{
+    color: #d3d3d3;
+}
+
+
+/******************************************/
+.accor-inner {
+    background: #defafd !important;
+    border-radius: 0px !important;
+    vertical-align:middle !important;
+}
+
+.accor-enable {
+    color: #69e8ef;
+    font-size: 18px;
+    padding: 0px 0px;
+}
+
+.accor-enable:hover {
+    color: #69e8ef;
+}
+
+.accor-disable {
+    color: darkgray;
+    font-size: 18px;
+    padding: 0px 0px;
+}
+
+.accor-disable:hover {
+    color: darkgray;
+}
+.panel-heading {
+    border-radius: 0px !important;
+    padding: 5px 10px;
+    vertical-align: middle;
+}
+
+.panel-default > .panel-heading{
+    border-radius: 0px !important;
+    background: #f4f4f4 !important;
+}
+
+.color1{
+    color: #69e8ef;
+}
+
+.color2{
+    color: #025575;
+    font-weight: bold;
+}
+
+.filterlist h5{
+    margin: 0px;
+    padding: 0px;
+}
+
+.accor-container {
+    background: #fff;
+    height: 250px;
+}
+
+
+.text-lightblue{
+    color: #69e8ef;
+}
+
+.text-blue{
+    color: #025575;
+    margin-top: 5px;
+}
+
+.mt50{
+    margin-top: 50px;
+}
+
+.backcolor1{
+     padding-top: 10px;
+     padding-bottom: 10px;
+     margin-bottom: 5px;
+     background: #defafd;
+ }
+.backcolor2{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+    background: #eaeaea;
+}
+
+/*----------------------------*/
+
+
+/*#innerScroll{
+ overflow-y: auto;
+}
+#innerScroll::-moz-scrollbar{
+    width:16px;
+    background-color:red;
+}*/
+
+#mycustomscroll {
+    width: 100px;
+    height: 100px;
+    overflow: auto;
+    position: relative;
+}
+
+.scroller {
+    /*white-space: pre-line;*/
+
+    overflow-y: hidden;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.ps-scrollbar-y {
+    background-color: #69e8ef !important;
+}
+
+/*.ps-scrollbar-y-rail{*/
+    /*right: 12px !important;*/
+/*}*/
+
+ /***************************************************************************************************/
+.text-gray-bold{
+    color: #a1a1a1;
+    font-weight: bold;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.bg-color1{
+    background-color: #69e8ef;
+    width: 20px;
+    height: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.bg-color2{
+    background-color: #025575;
+    width: 20px;
+    height: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.bg-color3{
+    background-color: darkgray;
+    width: 20px;
+    height: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.pad-0{
+    padding: 0px;
+}
+.marg-0{
+   margin: 0px;
+}
+.pad-top-bottom-0{
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.pad-top-bottom-10{
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.pad-top-bottom-5{
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.bottom-border-gray{
+    border-bottom: solid thin darkgray;
+}
+
+.bottom-top-gray{
+    border-top: solid thin darkgray;
+}
+.highcharts-yaxis-title{
+    display: none !important;
+}
+highcharts-background{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.footer-bottom {
+    width:100%;
+    height:150px;
+    position:absolute;
+    bottom:0;
+    left:0;
+    background:#eaeaea;
+}

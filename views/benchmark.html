@@ -1,0 +1,15 @@
+<div class="col-sm-12">
+    <h3 class="text-gray-bold" style="margin-top: 0px">Click the button to run the phoronix benchmark</h3>
+    <a class="btn btn-md btn-style" style="width: 150px" ng-click="benchmarkRun()">Run Benchmark</a>
+</div>
+
+<div class="col-sm-12" style="border: solid thin #000; margin-top: 10px">
+    <perfect-scrollbar class="scroller" wheel-propagation="true" wheel-speed="50" >
+        <div class="col-sm-12 flexcroll" id="innerScroll"
+             ng-model="innerScroll"
+             ng-style="{'height' : leftMenuHeight}">
+             <div ng-repeat="result in benchmarkResult track by $index"><h6>{{result}}</h6></div>
+        </div>
+
+    </perfect-scrollbar>
+</div>

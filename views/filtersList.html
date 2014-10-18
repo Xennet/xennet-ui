@@ -1,0 +1,207 @@
+<div>
+    <div class="row col-sm-12">
+        <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="Search" ng-model="search" ng-keyup="searchFilter(search)"/>
+        </div>
+        <div class="col-sm-8">
+            <button class="btn btn-style" ng-click="sortByDate()">by Date</button>
+            <button class="btn btn-style" ng-click="sortByName()">by Name</button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <br/><br/>
+
+    <perfect-scrollbar class="scroller" wheel-propagation="true" wheel-speed="50" >
+    <div class="row col-sm-12 flexcroll" id="innerScroll" ng-model="innerScroll" ng-style="{'height' : leftMenuHeight}">
+
+        <!--<div class="row">-->
+                        <!--<span class="col-sm-2">-->
+                            <!--&nbsp;-->
+                        <!--</span>-->
+
+                        <!--<span class="col-sm-2">-->
+                            <!--<span>-->
+                                <!--<strong>&nbsp;&nbsp;ID</strong>-->
+                            <!--</span>-->
+                        <!--</span>-->
+
+                        <!--<span class="col-sm-2">-->
+                            <!--<span>-->
+                                <!--<strong>&nbsp;Name</strong>-->
+                            <!--</span>-->
+                        <!--</span>-->
+
+                        <!--<span class="col-sm-2">-->
+                            <!--<span>-->
+                                <!--<strong>Created Date</strong>-->
+                            <!--</span>-->
+                        <!--</span>-->
+
+
+        <!--</div>-->
+        <accordion close-others="oneAtATime" >
+            <accordion-group class="accor-inner" ng-repeat="filter in filtersList" is-open="filter.open">
+                <accordion-heading>
+                    <div class="row col-sn-12" >
+                        <span class="col-sm-1" style="border-right: solid thin #d3d3d3;">
+                            <i class="pull-left glyphicon" style="color: #025575"  ng-class="{'glyphicon-chevron-up': filter.open, 'glyphicon-chevron-down': !filter.open}"></i>
+                        </span>
+
+                        <span class="col-sm-1" style="border-right: solid thin #d3d3d3;">
+                            <span>
+                                <b>{{ filter.id }}</b>
+                            </span>
+                        </span>
+
+                        <span class="col-sm-2 " style="border-right: solid thin #d3d3d3; color:#025575">
+                            <span>
+                                <b>{{ filter.name }}</b>
+                            </span>
+                        </span>
+
+                        <span class="col-sm-2">
+                            <span>
+                                <b>{{ filter.createdDate | date:'MM-dd-yyyy' }}</b>
+                            </span>
+                        </span>
+
+                        <span ng-if="filter.enabled" class=" col-sm-2 btn pull-right accor-enable" style="margin-right: 10px;z-index: 1000;" ng-click="onDisable($index,$event)">
+                            ENABLED   <span class="glyphicon glyphicon-ok"></span>
+                        </span>
+                        <span ng-if="!filter.enabled" class=" col-sm-2 btn pull-right accor-disable" style="margin-right: 10px;z-index: 1000;" ng-click="onEnable($index,$event)">
+                            DISABLED<span class="glyphicon glyphicon-remove"></span>
+                        </span>
+                    </div>
+                </accordion-heading>
+                <div id="filterlist" class="col-md-12" style="padding:0px">
+
+                    <!--***************************************** RATES *********************************************-->
+                    <div class="col-md-4">
+                        <div class="col-md-12 accor-container" >
+                            <div class="col-md-12">
+                                    <h3 class="color1">RATES</h3>
+                            </div>
+                            <div class="col-md-12">
+                                <span class="col-md-6" style="padding:0px"><h5>Price plan</h5></span>
+                                <span class="col-md-6" style="padding:0px"><h5 class="color2">{{filter.pricingPlan}}</h5></span>
+                                <!--<span class="col-md-8">{{filter.benchMark.ot.min}}$ - {{filter.benchMark.ot.max}}$</span>-->
+                            </div>
+                            <div class="col-md-12">&nbsp;
+                                <!--<span class="col-md-4">Rendering</span>-->
+                                <!--<span class="col-md-8">{{filter.benchMark.randering.min}}$ - {{filter.benchMark.randering.max}}$</span>-->
+                            </div>
+                            <div class="col-md-12"> &nbsp;
+                                <!--<span class="col-md-4">Coal Mining</span>-->
+                                <!--<span class="col-md-8">{{filter.benchMark.others.min}}$ - {{filter.benchMark.others.max}}$</span>-->
+                            </div>
+                            <div class="col-md-12"> &nbsp;
+                                <!--<span class="col-md-4">id - diff</span>-->
+                                <!--<span class="col-md-8">{{filter.idDiff.min}} - {{filter.idDiff.max}}</span>-->
+                            </div>
+                            <div class="col-md-12"> &nbsp;
+                                <!--<span class="col-md-4">id - diff</span>-->
+                                <!--<span class="col-md-8">{{filter.idDiff.min}} - {{filter.idDiff.max}}</span>-->
+                            </div>
+                            <div class="col-md-12"> &nbsp;
+                                <!--<span class="col-md-4">id - diff</span>-->
+                                <!--<span class="col-md-8">{{filter.idDiff.min}} - {{filter.idDiff.max}}</span>-->
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--***************************************** CONTAINER *****************************************-->
+                    <div class="col-md-4">
+                        <div class="col-md-12 accor-container"  >
+                            <div class="col-md-12">
+                                <h3 class="color1">CONTAINER</h3>
+                            </div>
+
+                            <div class="col-md-12">
+                                <span class="col-md-6" style="padding:0px"><h5>RAM</h5></span>
+                                <span class="col-md-6" style="padding:0px"><h5 class="color2">{{filter.ram.min}}GB - {{filter.ram.max}}GB</h5></span>
+                            </div>
+                            <div class="col-md-12">
+                                <span class="col-md-6" style="padding:0px"><h5>Disk Space</h5></span>
+                                <span class="col-md-6" style="padding:0px"><h5 class="color2">{{filter.diskSpace.min}}GB - {{filter.diskSpace.max}}GB</h5></span>
+                            </div>
+                            <div class="col-md-12">
+                                <span class="col-md-6" style="padding:0px"><h5>Network bandwidth</h5></span>
+                                <span class="col-md-6" style="padding:0px"><h5 class="color2">{{filter.bandwidth.min}}MB/s - {{filter.bandwidth.max}}MB/s</h5></span>
+                            </div>
+                            <div class="col-md-12">
+                                <span class="col-md-6" style="padding:0px"><h5>cores</h5></span>
+                                <span class="col-md-6" style="padding:0px"><h5 class="color2">{{filter.cores.min}} - {{filter.cores.max}}</h5></span>
+                            </div>
+                            <div class="col-md-12">
+                                <span class="col-md-6" style="padding:0px"><h5>id - diff</h5></span>
+                                <span class="col-md-6" style="padding:0px"><h5 class="color2">{{filter.difficulty}}</h5></span>
+                            </div>
+
+                            <div class="col-md-12">&nbsp;
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--***************************************** BIDDER ADDRESS ************************************-->
+                    <div class="col-md-4">
+                        <div class="col-md-12 accor-container"  >
+                            <div class='col-md-12'>
+                                <h3 class="color1">BIDDER ADDRESS</h3>
+                            </div>
+                            <div class="col-md-12">
+                                <span class="col-md-6"><h5>Categoty</h5></span>
+                                <span class="col-md-6"><h5 class="color2">{{filter.category}}</h5></span>
+                            </div>
+                            <div class="col-md-12">
+                                <span class="col-md-6"><h5>Address</h5></span>
+                                <span class="col-md-6"><h5 class="color2">{{filter.address}}</h5></span>
+                            </div>
+                            <div class="col-md-12">&nbsp;
+                                <!--<span class="col-md-4">Network bandwidth</span>-->
+                                <!--<span class="col-md-8">{{filter.bandwidth.min}}MB/s - {{filter.bandwidth.max}}MB/s</span>-->
+                            </div>
+                            <div class="col-md-12">&nbsp;
+                                <!--<span class="col-md-4">OS</span>-->
+                                <!--<span class="col-md-8"><span ng-repeat="os in filter.os">{{os}};</span></span>-->
+                            </div>
+                            <div class="col-md-12">&nbsp;
+                                <!--<span class="col-md-4">cores</span>-->
+                                <!--<span class="col-md-8">{{filter.cores.min}} - {{filter.cores.max}}</span>-->
+                            </div>
+                            <div class="col-md-12"> &nbsp;
+                                <!--<span class="col-md-4">id - diff</span>-->
+                                <!--<span class="col-md-8">{{filter.idDiff.min}} - {{filter.idDiff.max}}</span>-->
+                            </div>
+                            <div class="col-md-12"> &nbsp;
+                                <!--<span class="col-md-4">id - diff</span>-->
+                                <!--<span class="col-md-8">{{filter.idDiff.min}} - {{filter.idDiff.max}}</span>-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <button class="btn pull-right btn-style" style="margin-right: 0px; margin-top: 10px" ng-click="editFilter($index)">OPEN</button>
+                    </div>
+                </div>
+            </accordion-group>
+
+        </accordion>
+
+        <!--<accordion close-others="oneAtATime">
+            <accordion-group>
+                <accordion-heading>
+                    I can have markup, too! <i class="pull-left glyphicon" ng-class="{'glyphicon-minus': status.open, 'glyphicon-plus': !status.open}"></i>
+                </accordion-heading>
+                This is just some content to illustrate fancy headings.
+            </accordion-group>
+        </accordion>-->
+
+    </div>
+    </perfect-scrollbar>
+
+
+
+
+</div>

@@ -1,0 +1,54 @@
+<!--
+<div class="row row-offcanvas row-offcanvas-left">
+    <div class="col-sm-3 col-lg-3 pull-left">
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+            <ul class="nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Link 1</a></li>
+                <li><a href="#">Link 2</a></li>
+                <li><a href="#">Link 3</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="col-sm-9 col-lg-9 pull-right">
+        This is Right Section
+    </div>
+
+</div>-->
+<div >
+    <div class="row row-offcanvas row-offcanvas-left" >
+
+        <!-- sidebar -->
+        <!-- <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+             <ul class="nav">
+                 <li class="active"><a href="#">Home</a></li>
+                 <li><a href="#">Link 1</a></li>
+                 <li><a href="#">Link 2</a></li>
+                 <li><a href="#">Link 3</a></li>
+             </ul> left-ul
+         </div>-->
+        <div class="col-sm-3 col-md-2 left-ul" id="leftCol" style="padding: 0px" ng-style="{'height' : leftHeight}">
+
+            <ul class="nav nav-stacked" id="sidebar" style="padding: 0px">
+
+                <li ><a href="javascript:void(0)">CONNECTION</a></li>
+                <li ng-class="{ active: template == 'views/filters.html'}"><a href="javascript:void(0)" ng-click="setTemplate('views/filters.html')">FILTER</a></li>
+                <li ng-class="{ active: template == 'views/filtersList.html'}"><a href="javascript:void(0)" ng-click="setTemplate('views/filtersList.html')">FILTER LIST</a></li>
+                <li ng-class="{ active: template == 'views/benchmark.html'}"><a href="javascript:void(0)" ng-click="setTemplate('views/benchmark.html')">BENCHMARKS</a></li>
+                <li><a href="javascript:void(0)">ADDRESS BOOK</a></li>
+                <li><a href="javascript:void(0)">HISTORY</a></li>
+            </ul>
+
+        </div>
+
+        <!-- main area -->
+        <div class="col-sm-9 col-md-10" ng-include src="template" style="padding-top: 35px">
+
+
+
+        </div><!-- /.col-xs-12 main -->
+    </div><!--/.row-->
+</div><!--/.container-->
+</div><!--/.page-container-->

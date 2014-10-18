@@ -1,0 +1,260 @@
+<div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-sm-12 tagName">
+        FILTER NAME: <input type="text" class="gray-head-text" placeholder="Enter name here..." ng-model="fil.nameFilter" />
+    </div>
+
+    <!--***************************************** RATES *************************************************************-->
+    <div class="col-sm-12" >&nbsp;</div>
+    <div id="rates" class="col-sm-4">
+        <div class="col-sm-12 advanced-header" >
+            <h3>RATES</h3>
+        </div>
+
+        <div class="col-sm-12" >
+            <h4>Choose pricing method</h4>
+        </div>
+
+        <div class="col-sm-12" >
+            <div class="col-sm-12 advanced-container" >
+                <div class="col-sm-1 rate-check-padding" >
+                    <input type="radio" name="optionsRadios"  ng-model="rates" id="fixed" value="fixed">
+                </div>
+                <div class="col-sm-11" ng-class="{'rate-disable': rates != 'fixed'}" style="padding: 0 15px">
+                    <div class="col-sm-12">
+                        <h4 class="col-sm-7" style="padding-left: 0px;">Fixed</h4>
+                        <span class="pull-right change-value">{{ ratesFixed.min }} - {{ ratesFixed.max }}$</span></div>
+                    <div class="col-sm-12" >
+                        <rzslider
+                                rz-slider-floor="ratesFixed.floor"
+                                rz-slider-ceil="ratesFixed.ceil"
+                                rz-slider-model="ratesFixed.min"
+                                rz-slider-high="ratesFixed.max"
+                                rz-slider-step="{{ratesFixed.step}}"></rzslider>
+                    </div>
+                    <div class="col-sm-12" >
+                        1$<span style="float: right">4$</span>
+                    </div>
+                    <!--<div class="col-sm-2" style="padding: 10px">${{ ratesFixed[0].p + ratesFixed[1].p +1 }}</div>-->
+                </div>
+                <div class="clearfix"></div>
+
+                <hr />
+
+                <div class="col-sm-1 rate-check-padding" >
+                    <input type="radio" name="optionsRadios" ng-model="rates" id="benchmark" value="benchmark">
+                </div>
+                <div class="col-sm-11" ng-class="{'rate-disable': rates != 'benchmark'}" style="padding: 0 15px">
+                    <div class="col-sm-12">
+                        <h4 class="col-sm-7" style="padding-left: 0px;">Pricing Plan</h4></div>
+                    <div class="col-sm-12" >
+                        <select id="plan" class="form-control" ng-model="fil.pricingPlan">
+                            <option value="Plan A">Plan A</option>
+                            <option value="Plan B">Plan B</option>
+                            <option value="Plan C">Plan C</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="clearfix">&nbsp;</div>
+            </div>
+            <h5 class="text-justify">Rate are reward per day of using 100% machine</h5>
+        </div>
+    </div>
+
+    <!--***************************************** CONTAINER *********************************************************-->
+    <div id="container" class="col-sm-4">
+        <div class="col-sm-12 advanced-header" >
+            <h3><large>CONTAINER</large></h3>
+        </div>
+
+        <!--RAM-------------------------------------------------------------------------------------->
+        <div class="col-sm-12 container-bottom-margin" >
+            <div class="col-sm-12 advanced-container" >
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        <h4 class="col-sm-7 " style="padding: 0px;">RAM</h4>
+                        <span class="pull-right change-value">{{ ram.min }} - {{ ram.max }}G</span>
+                    </div>
+                    <div class="col-sm-12" >
+                        <rzslider
+                                rz-slider-floor="ram.floor"
+                                rz-slider-ceil="ram.ceil"
+                                rz-slider-model="ram.min"
+                                rz-slider-high="ram.max"
+                                rz-slider-step="{{ram.step}}"></rzslider>
+                    </div>
+                    <div class="col-sm-12" >
+                        1G<span style="float: right">4G</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Disk Space--------------------------------------------------------------------------------->
+        <div class="col-sm-12 container-bottom-margin" >
+            <div class="col-sm-12 advanced-container" >
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        <h4 class="col-sm-7" style="padding-left: 0px;">Disk Space</h4>
+                        <span class="pull-right change-value">{{ Ds.min }} - {{ Ds.max }}G</span></div>
+                    <div class="col-sm-12" >
+                        <rzslider
+                                rz-slider-floor="Ds.floor"
+                                rz-slider-ceil="Ds.ceil"
+                                rz-slider-model="Ds.min"
+                                rz-slider-high="Ds.max"
+                                rz-slider-step="{{Ds.step}}"></rzslider>
+                    </div>
+                    <div class="col-sm-12" >
+                        1G<span style="float: right">28G</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Bandwidth------------------------------------------------------------------------------------>
+        <div class="col-sm-12 container-bottom-margin" >
+            <div class="col-sm-12 advanced-container" >
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        <h4 class="col-sm-6" style="padding-left: 0px;">Bandwidth</h4>
+                        <span class="pull-right change-value">{{ Bw.min }} - {{ Bw.max }}Mb/s</span></div>
+                    <div class="col-sm-12" >
+                        <rzslider
+                                rz-slider-floor="Bw.floor"
+                                rz-slider-ceil="Bw.ceil"
+                                rz-slider-model="Bw.min"
+                                rz-slider-high="Bw.max"
+                                rz-slider-step="{{Bw.step}}"></rzslider>
+                    </div>
+                    <div class="col-sm-12" >
+                        1Mb/s<span style="float: right">10Mb/s</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Cores---------------------------------------------------------------------------------------->
+        <div class="col-sm-12 container-bottom-margin" >
+            <div class="col-sm-12 advanced-container" >
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        <h4 class="col-sm-6" style="padding-left: 0px;">Cores</h4>
+                        <span class="pull-right change-value">{{ cores.min }} - {{ cores.max }}</span></div>
+                    <div class="col-sm-12" >
+                        <rzslider
+                                rz-slider-floor="cores.floor"
+                                rz-slider-ceil="cores.ceil"
+                                rz-slider-model="cores.min"
+                                rz-slider-high="cores.max"
+                                rz-slider-step="{{cores.step}}"></rzslider>
+                    </div>
+                    <div class="col-sm-12" >
+                        1<span style="float: right">4</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Difficulty------------------------------------------------------------------------------------>
+        <div class="col-sm-12 container-bottom-margin" >
+            <div class="col-sm-12 advanced-container" >
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        <h4 class="col-sm-6" style="padding: 0px;">Minimun id difficulty</h4>
+                        <div class="col-sm-4 pull-right" style="padding: 0px" >
+                            <select id="difficulty" class="form-control" ng-model="fil.difficulty">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--***************************************** BIDDER ADDRESS ****************************************************-->
+    <div id="bidder" class="col-sm-4">
+        <div class="col-sm-12 advanced-header" >
+            <h3><large>BIDDER ADDRESS</large></h3>
+        </div>
+
+        <!--Category------------------------------------------------------------------------------------>
+        <div class="col-sm-12 container-bottom-margin" >
+            <div class="col-sm-12 advanced-container" >
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        <h4 class="col-sm-7" style="padding-left: 0px;">Category</h4></div>
+                    <div class="col-sm-12" >
+                        <select id="category" class="form-control" ng-model="fil.category">
+                            <option value="Elevated">Elevated</option>
+                            <option value="Normal">Normal</option>
+                            <option value="All">All</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="clearfix">&nbsp;</div>
+            </div>
+        </div>
+
+        <!--Address------------------------------------------------------------------------------------>
+        <div class="col-sm-12" >
+            <div class="col-sm-12 advanced-container" >
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        <h4 class="col-sm-7" style="padding-left: 0px;">Address</h4></div>
+                    <div class="col-sm-12" >
+                        <input type="text" class="form-control" ng-model="fil.address"/>
+                    </div>
+                    <div class="clearfix">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12" >
+            <div class="col-sm-12  ">
+                <div class="col-sm-12" style="margin-top: 115px">
+                    <div class="col-sm-12">
+                        &nbsp;
+                    </div>
+                    <div class="col-sm-12">
+                        &nbsp;
+                    </div>
+                    <div class="col-sm-12">
+                        &nbsp;
+                    </div>
+                    <div class="col-sm-12">
+                        &nbsp;
+                    </div>
+
+                    <div class="col-sm-12 text-right" >
+                        <a class="btn btn-sm btn-style" ng-click="restore()">Restore</a>
+                        <a class="btn btn-sm btn-style" ng-model="save" ng-click="save()">Save</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix">&nbsp;</div>
+    </div>
+    <!--<div class="clearfix">&nbsp;</div>-->
+
+    <!--<hr class="h-line">-->
+
+    <!--<div id="saveRestore" class="col-sm-12">-->
+        <!--<div class="col-xs-3 col-sm-9"></div>-->
+        <!--<div class="col-sm-3" text-center>-->
+            <!--<a class="btn btn-sm btn-style" ng-click="restore()">Restore</a>-->
+            <!--<a class="btn btn-sm btn-style" ng-model="save" ng-click="save()">Save</a>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="clearfix">&nbsp;</div>-->
+
+</div>

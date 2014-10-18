@@ -1,0 +1,221 @@
+
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="col-md-12 text-center pad-top-bottom-0">
+        <span class="btn btn-link" ng-model="timeMenu" ng-class="{color2: selectedTime == 'all', 'text-gray-bold': selectedTime != 'all'}" ng-click="getSelectedTime('all')">All Time</span> |
+        <span class="btn btn-link" ng-model="yearMenu" ng-class="{color2: selectedTime == 'year', 'text-gray-bold': selectedTime != 'year'}" ng-click="getSelectedTime('year')">Start of Year</span> |
+        <span class="btn btn-link" ng-model="monthMenu" ng-class="{color2: selectedTime == 'month', 'text-gray-bold': selectedTime != 'month'}" ng-click="getSelectedTime('month')">Month</span> |
+        <span class="btn btn-link" ng-model="lastDaysMenu" ng-class="{color2: selectedTime == 'lastDays', 'text-gray-bold': selectedTime != 'lastDays'}" ng-click="getSelectedTime('lastDays')">Last 30 Days</span> |
+        <span class="btn btn-link" ng-model="weekMenu" ng-class="{color2: selectedTime == 'week', 'text-gray-bold': selectedTime != 'week'}" ng-click="getSelectedTime('week')">Week</span> |
+        <span class="btn btn-link" ng-model="dayMenu" ng-class="{color2: selectedTime == 'day', 'text-gray-bold': selectedTime != 'day'}" ng-click="getSelectedTime('day')">Day</span>
+    </div>
+
+    <div class="col-md-12">
+        <!------------------------------- ZENCOIN --------------------------------------------------------------------->
+        <div class="col-md-3 pad-top-bottom-0">
+            <div class="col-md-12 pad-top-bottom-0 ">
+                <h3 class="text-center text-lightblue pad-top-bottom-0">ZENCOIN</h3>
+                <h6 class="text-center">&nbsp;</h6>
+            </div>
+
+            <div class="col-md-12 backcolor1" style="padding-top: 0px">
+                <div class="col-md-12 pad-top-bottom-0">
+                    <h4 class="bold">Balance</h4>
+                    <h1 class="text-blue pad-top-bottom-0 bold">83.2045<small  style="font-family: Arial;">Ƶ</small></h1>
+                </div>
+                <div class="col-md-12 pad-0 bottom-border-gray">
+                    <div class="col-md-6 pad-top-bottom-0 ">
+                        <h5 class="bold">Pending</h5>
+                    </div>
+                    <div class="col-md-6 pad-top-bottom-0">
+                        <h3 class="text-blue text-right">4.896<small  style="font-family: Arial;">Ƶ</small></h3>
+                    </div>
+                </div>
+                <div class="col-md-12 pad-0 bottom-border-gray"  style="padding-top: 10px; padding-bottom: 10px">
+                    <div class="col-md-6 pad-top-bottom-0 ">
+                        <h5 class="bold">Profit Rate</h5>
+                    </div>
+                    <div class="col-md-6 pad-top-bottom-0">
+                        <h3 class="text-blue text-right">0.0034<small  style="font-family: Arial;">Ƶ</small></h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 backcolor2" style="padding-top: 0px">
+                <div class="col-md-12 pad-top-bottom-0">
+                    <h5 class="bold">Profit Rate</h5>
+                </div>
+                <div class="col-md-12 pad-0">
+                    <highchart id="chart1" config="rateLineChart" class=" col-md-12 span9" ></highchart>
+                </div>
+                <div class="col-md-12 pad-0 text-center">
+                    <span>rate(<small style="font-family: Arial;">Ƶ</small>/min)</span><span class="bg-color1">&nbsp;</span>&nbsp;&nbsp;
+                    <span>total(<small style="font-family: Arial;">Ƶ</small>)</span><span class="bg-color2">&nbsp;</span>
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------- SYSTEM ---------------------------------------------------------------------->
+        <div class="col-md-3 pad-top-bottom-0">
+            <div class="col-md-12 pad-top-bottom-0">
+                <h3 class="text-center text-lightblue pad-top-bottom-0">SYSTEM</h3>
+                <h6 class="text-center pad-top-bottom-0">
+                    <span style="cursor: pointer" ng-class="{color2: textSystemData == 'average', 'text-gray-bold': textSystemData != 'average'}" ng-click="setRandomSystemData(); getSystemData('average')">Average</span> |
+                    <span style="cursor: pointer" ng-class="{color2: textSystemData == 'current', 'text-gray-bold': textSystemData != 'current'}" ng-click="setRandomSystemData(); getSystemData('current')">Current</span>
+                </h6>
+            </div>
+                <div class="col-md-12 backcolor2" style="padding-top: 0px">
+                    <div class="col-md-12 pad-top-bottom-5 bottom-border-gray " style="padding-top: 0px">
+                        <h5 class="bold">Uptime</h5>
+                        <h1 class="text-blue text-center">
+                            <timer interval="1000" start-time="timeStart" ng-if="timeStart != undefined">{{hhours}}:{{mminutes}}:{{sseconds}}</timer>
+                            <span ng-if="timeStart == undefined">00:00:00</span>
+                        </h1>
+                    </div>
+
+                    <div class="col-md-12 pad-0 bottom-border-gray">
+                        <div class="col-md-7 pad-top-bottom-10">
+                            <h5 class="bold">Number Of Containers</h5>
+                        </div>
+                        <div class="col-md-5 pad-top-bottom-10">
+                            <h1 class="text-blue text-center">
+                                {{ noOfContainers }} <!-- bandwidth-->
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="padding-top: 8px; padding-bottom: 8px">
+                        <h5 class="bold">Container Classes</h5>
+                        <highchart config="containerClassesChart" class="span10"></highchart>
+                        <div class="col-md-4 pad-0 text-center">
+                            <h3 class="color2 marg-0" ng-if="timeStart == undefined">0%</h3>
+                            <h3 class="color2 marg-0" ng-if="timeStart != undefined">{{ containerClasses.normal }}%</h3>
+                            <h5 class="marg-0">Normal</h5>
+                            <span class="bg-color3">&nbsp;</span>
+                        </div>
+                        <div class="col-md-4 pad-0 text-center">
+                            <h3 class="color2 marg-0">{{ containerClasses.elevated }}%</h3>
+                            <h5 class="marg-0 ">Elevant</h5>
+                            <span class="bg-color1">&nbsp;</span>
+                        </div>
+                        <div class="col-md-4 pad-0 text-center">
+                            <h3 class="color2 marg-0">{{ containerClasses.dodgy }}%</h3>
+                            <h5 class="marg-0" >Dodgy</h5>
+                            <span class="bg-color2">&nbsp;</span>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <!------------------------------- VM -------------------------------------------------------------------------->
+        <div class="col-md-3">
+            <div class="col-md-12">
+                <h3 class="text-center text-lightblue">VM</h3>
+                <h6 class="text-center">
+                    <span style="cursor: pointer" ng-class="{color2: textCurrent == 'average', 'text-gray-bold': textCurrent != 'average'}" ng-click="setRandomVmData('average'); getCurrentTime('average')">Average</span> |
+                    <span style="cursor: pointer" ng-class="{color2: textCurrent == 'current', 'text-gray-bold': textCurrent != 'current'}" ng-click="setRandomVmData('current'); getCurrentTime('current')">Current</span>
+                </h6>
+            </div>
+
+            <div class="col-md-12 backcolor1" style="padding-top: 0px">
+                <div class="col-md-12 pad-top-bottom-0 " style="padding-top: 0px">
+                    <div class="col-md-8 pad-0">
+                        <h5 class="bold">CPU Usage</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="text-blue text-center">
+                            {{cpuUsageChart.series[0].data[cpuUsageChart.series[0].data.length-1]}}%
+                        </h3>
+                    </div>
+                    <div class="col-md-12">
+                        <highchart id="chart1" config="cpuUsageChart" class="span9" ></highchart>
+                    </div>
+                </div>
+
+                <div class="col-md-12 pad-top-bottom-0 bottom-top-gray " style="padding-top: 0px">
+                    <div class="col-md-8 pad-0">
+                        <h5 class="bold">RAM Usage</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="text-blue text-center">
+                            {{ramUsageChart.series[0].data[ramUsageChart.series[0].data.length-1]}}%
+                        </h3>
+                    </div>
+                    <div class="col-md-12">
+                        <highchart id="chart1" config="ramUsageChart" class="span9" ></highchart>
+                    </div>
+                </div>
+
+                <div class="col-md-12 pad-top-bottom-0 bottom-top-gray " style="padding-top: 0px">
+                    <div class="col-md-8 pad-0">
+                        <h5 class="bold">Disk Usage</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="text-blue text-center">
+                            {{diskUsageChart.series[0].data[diskUsageChart.series[0].data.length-1]}}%
+                        </h3>
+                    </div>
+                    <div class="col-md-12">
+                        <highchart id="chart1" config="diskUsageChart" class="span9" ></highchart>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 pad-top-bottom-0 backcolor1">
+                <div class="col-md-12 pad-top-bottom-0">
+                    <div class="col-md-6 pad-0" style="border-right: solid thin darkgray">
+                        <h5 class="bold text-center marg-0"> Cores</h5>
+                        <h3 class="text-blue text-center marg-0">
+                           4
+                        </h3>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="bold text-center marg-0">Bandwidth</h5>
+                        <h3 class="text-blue text-center marg-0" >
+                            {{bandwidth}}<small>Mb/s</small>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!------------------------------- STATISTICS ------------------------------------------------------------------>
+        <div class="col-md-3">
+            <div class="col-md-12">
+                <h3 class="text-center text-lightblue">STATISTICS</h3>
+                <h6 class="text-center">&nbsp;</h6>
+            </div>
+
+            <div class="col-md-12 backcolor2" style="padding-top: 0px">
+                <div class="col-md-12  bottom-border-gray " style=" padding-bottom: 20px">
+                    <h5 class="bold">Contract Payrate(avg)</h5>
+                    <h1 class="text-blue">
+                        1.34<small style="font-family: Arial;">Ƶ/day</small>
+                    </h1>
+                </div>
+
+                <div class="col-md-12  bottom-border-gray " style=" padding-bottom: 30px">
+                    <h5 class="bold">Number of <br>contract offers</h5>
+                    <h1 class="text-blue">
+                        83<small style="font-family: Arial;">Ƶ/day</small>
+                    </h1>
+                </div>
+
+                <div class="col-md-12 pad-top-bottom-0 bottom-top-gray " style="padding-top: 0px; margin-bottom: 50px">
+                    <div class="col-md-8 pad-0">
+                        <h5 class="bold">Contract Drop Rate</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="text-blue" style="color: #e74e49">
+                            {{contractDropRate.series[0].data[contractDropRate.series[0].data.length-1]}}%
+                        </h3>
+                    </div>
+                    <div class="col-md-12">
+                        <highchart id="chart1" config="contractDropRate" class="span9" ></highchart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
